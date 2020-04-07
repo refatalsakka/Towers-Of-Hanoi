@@ -1,0 +1,13 @@
+:root {
+    --plate-height: 3em;
+    --plate-width: 100%;
+    --column-height: 60vh;
+    --column-width: 3.5vw;
+    --border-margin: 5px;
+    --border-height: calc(calc(var(--column-height) / 10) - var(--border-margin) - (calc(var(--plate-height) / 10)) - 2px);
+    --radius: 5px;
+    --bg-color: #184a45ff;
+    --base-color: #fc766aff;
+    --text-color: #b0b8b4ff;
+    --box-bg-hover: #00000050;
+}
