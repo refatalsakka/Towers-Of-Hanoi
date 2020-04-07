@@ -28,17 +28,13 @@ export default class CountdownController
     }
 
     clear() { 
-        if (this.interval) {
-            return clearInterval(this.interval);
-        }
+        if (this.interval) return clearInterval(this.interval);
 
         throw 'There is no Timer';
     }
 
     pause() {
-        if (this.interval) {
-            return this.isPause = true;
-        }
+        if (this.interval) return this.isPause = true;
 
         throw 'There is no Timer';
     }
