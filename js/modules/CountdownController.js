@@ -22,7 +22,7 @@ export default class CountdownController
     }
 
     replay() {
-        if (!this.isPause) throw 'timer is not paused';
+        if (!this.isPause) throw 'Timer is not paused';
 
         this.isPause = false;
     }
