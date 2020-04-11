@@ -42,7 +42,7 @@ export default class Game
         this.config = {
             max_level: 7,
             borders_length: Number(this.level.getLevel()) + 3,
-            countdown: Number(this.level.getLevel()) * 20,
+            countdown: Number(this.level.getLevel()) * 35,
             win_status: [
                 [0, 0, Number(this.level.getLevel()) + 3],
                 [0, Number(this.level.getLevel()) + 3, 0]
