@@ -295,15 +295,15 @@ export default class Game
         this.audio.loseAudio();
     }
 
-    _finish(btnMsg, h1Msg = this.msgs[this.level.getLevel() - 1]) {
+    _finish(btn, h1 = this.msgs[this.level.getLevel() - 1]) {
         this.pause = false;
 
         document.querySelector('.control-btns .pause').innerText = 'Pause';
 
-        if (btnMsg) {
+        if (btn) {
             this.overlay.slideIn({
-                btn: btnMsg,
-                h1: h1Msg,
+                btn,
+                h1,
                 countdown: this.config.countdown - this.countdown.countdown,
                 moves: this.moves.getMoves(),
             });
