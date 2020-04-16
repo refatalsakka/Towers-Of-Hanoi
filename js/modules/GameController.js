@@ -1,9 +1,9 @@
-import HelpersController from "./HelpersController.js";
-import LevelController from "./LevelController.js";
-import MoveController from "./MoveController.js";
-import AudioController from "./AudioController.js";
-import OverlayController from "./OverlayController.js";
-import CountdownController from "./CountdownController.js";
+import HelpersController from './HelpersController.js';
+import LevelController from './LevelController.js';
+import MoveController from './MoveController.js';
+import AudioController from './AudioController.js';
+import OverlayController from './OverlayController.js';
+import CountdownController from './CountdownController.js';
 
 export default class Game
 {
@@ -219,9 +219,9 @@ export default class Game
 
         if (!this.isBorderAllowToDrag(e)) return;
 
-        const border = document.querySelector(`div[data-index="${e.target.dataset.index}"]`);
+        const border = document.querySelector(`div[data-index='${e.target.dataset.index}']`);
 
-        e.dataTransfer.setData("text", e.target.dataset.index);
+        e.dataTransfer.setData('text', e.target.dataset.index);
 
         border.classList.add('on-transfer');
     }
@@ -232,7 +232,7 @@ export default class Game
         const box = e.path.find(elm => elm.classList[0] === 'box');
         const container = box.querySelector('.borders-container');
         const data = e.dataTransfer.getData('text');
-        const border = document.querySelector(`div[data-index="${data}"]`);
+        const border = document.querySelector(`div[data-index='${data}']`);
 
         box.classList.remove('hover');
 
