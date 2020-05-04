@@ -13,7 +13,7 @@ export default class LevelController
     }
 
     getLevel() {
-        return this.coockie.getCoockie('level') ?? 1;
+        return this.coockie.getCoockie('level') || 1;
     }
 
     up() {

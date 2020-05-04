@@ -13,6 +13,6 @@ export default class ThemeController
     }
 
     getTheme() {
-        return this.coockie.getCoockie('theme') ?? 'green-red-gray';
+        return this.coockie.getCoockie('theme') || 'green-red-gray';
     }
 }

@@ -5,7 +5,7 @@ export default class CountdownController
     }
 
     start(fun) {
-        if (this.interval) throw 'timer is already there';
+        if (this.interval) throw 'Timer is already there';
 
         const formatCountdown = new FormatCountdown();
 
