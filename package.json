@@ -1,0 +1,30 @@
+{
+  "name": "tower-of-hanoi",
+  "scripts": {
+    "gitty": "node gitty.js",
+    "lint:js": "eslint ./**/*.js",
+    "lint:js:fix": "eslint --fix ./**/*.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/refatalsakka/tower-of-hanoi-2.git"
+  },
+  "author": "Refat Alsakka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/refatalsakka/tower-of-hanoi-2/issues"
+  },
+  "homepage": "https://github.com/refatalsakka/tower-of-hanoi-2#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "husky": "^4.2.5",
+    "webpack": "^4.43.0"
+  }
+}
