@@ -3,7 +3,7 @@
   "scripts": {
     "gitty": "node gitty.js",
     "lint:js": "eslint ./**/*.js",
-    "lint:js:fix": "eslint --fix ./**/*.js",
+    "lint:fix:js": "eslint --fix ./**/*.js",
     "build": "webpack"
   },
   "repository": {
