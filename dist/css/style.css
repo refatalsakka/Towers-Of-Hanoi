@@ -81,21 +81,17 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/css/style.css");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/***/ "./src/css/style.css":
-/*!***************************!*\
-  !*** ./src/css/style.css ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module parse failed: Unexpected character '@' (1:0)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n> @font-face {\n|     font-family: TradeWinds;\n|     src: url('../fonts/TradeWinds-Regular.ttf');");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "css/style.css");
 
 /***/ })
-
-/******/ });
+/******/ ]);
 /*# sourceMappingURL=style.css.map*/

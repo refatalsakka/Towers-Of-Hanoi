@@ -81,21 +81,17 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/css/classes.css");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/***/ "./src/css/classes.css":
-/*!*****************************!*\
-  !*** ./src/css/classes.css ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module parse failed: Unexpected token (2:0)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n| /*Global Classes*/\n> .red-yellow-black {\n|     --bg-color: #f65058ff;\n|     --base-color: #28334aff;");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "css/classes.css");
 
 /***/ })
-
-/******/ });
+/******/ ]);
 /*# sourceMappingURL=classes.css.map*/
