@@ -1,3 +1,4 @@
+import '../css/game.css';
 import AudioController from './modules/AudioController';
 import ThemeController from './modules/ThemeController';
 import LevelController from './modules/LevelController';

@@ -1,22 +1,23 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
   entry: {
-    // 'css/classes.css': './src/css/classes.css',
-    'css/style.css': './src/css/style.css',
-    // 'css/variable.css': './src/css/variable.css',
-
-    'js/app.js': './src/js/app.js',
+    game: './src/js/game.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    filename: '[name]',
+    filename: 'js/[name].js',
   },
-  devtool: 'source-map',
-  // optimization: {
-  //   minimize: true,
-  // },
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin(),
+      new TerserPlugin(),
+    ],
+  },
   module: {
     rules: [
       {
@@ -28,9 +29,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: {
-          loader: 'file-loader',
-        },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          'css-loader',
+        ],
       },
       {
         test: /\.ttf$/,
@@ -44,4 +48,9 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/game.css',
+    }),
+  ],
 };

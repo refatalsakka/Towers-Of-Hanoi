@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="./src/css/variable.css" rel="stylesheet" />
-    <link href="./src/css/style.css" rel="stylesheet" />
-    <link href="./src/css/classes.css" rel="stylesheet" />
-    <title>Towers of Hanoi</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="./dist/css/game.css" rel="stylesheet" />
+  <title>Towers of Hanoi</title>
 </head>
+
 <body>
-    <div class="overlay">
-        <h1>Welcome to the Towers of Hanoi</h1>
-        <div class="info-box">
-            <p class="info-moves"></p>
-            <p class="info-countdown"></p>
-        </div>
-        <button class="btn">Start</button>
+  <div class="overlay">
+    <h1>Welcome to the Towers of Hanoi</h1>
+    <div class="info-box">
+      <p class="info-moves"></p>
+      <p class="info-countdown"></p>
     </div>
-    <div class="current-info">
-        <div class="moves-countdown">
-            <p class="moves">Moves: <span>0</span></p>
-            <p class="countdown">Countdown: <span>00:00</span></p>
-        </div>
-        <div class="level">
-            <p>Your Level is <strong>0</strong></p>
-        </div>
-        <div class="control">
-            <div class="control-btns">
-                <button class="btn not-clickable new">New</button>
-                <button class="btn not-clickable pause">Pause</button>
-            </div>
-            <div class="control-themes">
-                <strong>Themes</strong>
-                <span class="red-yellow-black"></span>
-                <span class="black-blue-orange"></span>
-                <span class="green-red-gray active"></span>
-            </div>
-        </div>
+    <button class="btn">Start</button>
+  </div>
+  <div class="current-info">
+    <div class="moves-countdown">
+      <p class="moves">Moves: <span>0</span></p>
+      <p class="countdown">Countdown: <span>00:00</span></p>
     </div>
-    <div class="boxes">
-        <div class="box" data-box="1">
-            <div class="borders-container"></div>
-            <div class="base"></div>
-        </div>
-        <div class="box" data-box="2">
-            <div class="borders-container"></div>
-            <div class="base"></div>
-        </div>
-        <div class="box" data-box="3">
-            <div class="borders-container"></div>
-            <div class="base"></div>
-        </div>
+    <div class="level">
+      <p>Your Level is <strong>0</strong></p>
     </div>
-    <script type="module" src="./dist/js/app.js"></script>
+    <div class="control">
+      <div class="control-btns">
+        <button class="btn not-clickable new">New</button>
+        <button class="btn not-clickable pause">Pause</button>
+      </div>
+      <div class="control-themes">
+        <strong>Themes</strong>
+        <span class="red-yellow-black"></span>
+        <span class="black-blue-orange"></span>
+        <span class="green-red-gray active"></span>
+      </div>
+    </div>
+  </div>
+  <div class="boxes">
+    <div class="box" data-box="1">
+      <div class="borders-container"></div>
+      <div class="base"></div>
+    </div>
+    <div class="box" data-box="2">
+      <div class="borders-container"></div>
+      <div class="base"></div>
+    </div>
+    <div class="box" data-box="3">
+      <div class="borders-container"></div>
+      <div class="base"></div>
+    </div>
+  </div>
+  <script src="./dist/js/game.js"></script>
 </body>
+
 </html>
