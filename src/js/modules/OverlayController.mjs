@@ -2,21 +2,17 @@ export default class OverlayController {
   constructor() {
     this.overlay = document.querySelector('.overlay');
     this.btn = document.querySelector('.overlay .btn');
-    this.h1 = document.querySelector('.overlay h1');
-    this.moves = document.querySelector('.info-box p.info-moves');
-    this.countdown = document.querySelector('.info-box p.info-countdown');
+    this.title = document.querySelector('.overlay h1');
+    this.text = document.querySelector('.info-box p.info-text');
+    this.isSlideIn = true;
   }
 
   slideIn(text, callback) {
-    this.btn.innerText = text.btn;
-    this.h1.innerText = text.h1;
-    this.moves.innerText = '';
-    this.countdown.innerText = '';
+    this.isSlideIn = true;
 
-    if (text.moves && text.countdown) {
-      this.moves.innerText = `Your Moves are ${text.moves}`;
-      this.countdown.innerText = `You took ${text.countdown} Seconds`;
-    }
+    this.btn.innerText = text.btn;
+    this.title.innerText = text.title;
+    this.text.innerText = text.msg;
 
     this.overlay.classList.remove('disable');
     this.overlay.classList.remove('out');
@@ -30,6 +26,8 @@ export default class OverlayController {
   }
 
   slideOut(callback) {
+    this.isSlideIn = false;
+
     this.overlay.classList.add('out');
     this.overlay.classList.remove('in');
 
@@ -38,11 +36,5 @@ export default class OverlayController {
 
       if (typeof callback === 'function') callback();
     }, { once: true });
-  }
-
-  click(callback) {
-    this.btn.addEventListener('click', () => {
-      if (typeof callback === 'function') callback();
-    });
   }
 }

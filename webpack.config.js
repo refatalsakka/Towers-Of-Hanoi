@@ -1,10 +1,11 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  watch: true,
+  mode: 'development',
   entry: {
     game: './src/js/game.js',
   },
@@ -12,10 +13,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist/'),
     filename: 'js/[name].js',
   },
+  devtool: 'source-map',
   optimization: {
     minimizer: [
-      new OptimizeCSSAssetsPlugin(),
-      new TerserPlugin(),
+      // new OptimizeCSSAssetsPlugin(),
+      // new TerserPlugin(),
     ],
   },
   module: {

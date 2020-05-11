@@ -5,10 +5,24 @@ export default class ThemeController {
     this.coockie = new CookieController();
   }
 
-  change(theme) {
-    this.coockie.setCoockie('theme', theme);
+  deactivate(btns) {
+    btns.forEach((btn) => {
+      btn.classList.remove('active');
+    });
+  }
 
-    document.body.className = theme;
+  active(btn) {
+    btn.classList.add('active');
+  }
+
+  change(btn, btns) {
+    this.deactivate(btns);
+
+    this.coockie.setCoockie('theme', btn.className);
+
+    document.body.className = btn.className;
+
+    this.active(btn);
   }
 
   getTheme() {

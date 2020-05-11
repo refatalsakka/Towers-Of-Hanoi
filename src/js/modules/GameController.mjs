@@ -31,9 +31,9 @@ export default class Game {
     this.bordersContainer = document.querySelector('.borders-container');
     this.borderOuting = null;
 
+    this.gameStarted = false;
     this.countdown = null;
     this.pause = false;
-    this.new = false;
     this.columnsAnimated = false;
   }
 
@@ -64,9 +64,9 @@ export default class Game {
 
     document.querySelector('.level strong').innerText = this.level.getLevel();
 
-    if (this.new) return;
+    if (this.gameStarted) return;
 
-    this.new = true;
+    this.gameStarted = true;
 
     this.boxesEvents();
 
@@ -294,7 +294,7 @@ export default class Game {
     this.audio.loseAudio();
   }
 
-  _finish(btn, h1 = this.msgs[this.level.getLevel() - 1]) {
+  _finish(btn, title = this.msgs[this.level.getLevel() - 1]) {
     this.pause = false;
 
     document.querySelector('.control-btns .pause').innerText = 'Pause';
@@ -302,9 +302,8 @@ export default class Game {
     if (btn) {
       this.overlay.slideIn({
         btn,
-        h1,
-        countdown: this.config.countdown - this.countdown.countdown,
-        moves: this.moves.getMoves(),
+        title,
+        msg: `Your Moves are ${this.moves.getMoves()}, You took ${this.config.countdown - this.countdown.countdown} Seconds`,
       });
     }
 
@@ -336,7 +335,13 @@ export default class Game {
   _pause(e) {
     if (this.pause) return this.replay(e);
 
-    e.target.innerText = 'Replay';
+    if (e.target) {
+      e.target.innerText = 'Replay';
+    } else {
+      e.innerText = 'Replay';
+    }
+
+    if (!this.gameStarted) return false;
 
     this.pause = true;
 
@@ -344,7 +349,13 @@ export default class Game {
   }
 
   replay(e) {
-    e.target.innerText = 'Pause';
+    if (e.target) {
+      e.target.innerText = 'Pause';
+    } else {
+      e.innerText = 'Pause';
+    }
+
+    if (!this.gameStarted) return false;
 
     this.pause = false;
 

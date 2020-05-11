@@ -17,10 +17,16 @@ import OverlayController from './modules/OverlayController';
   const overlay = new OverlayController();
   const game = new GameController();
 
-  const buttons = document.querySelectorAll('.btn, .control-themes span');
+  const buttons = document.querySelectorAll('.btn, .control-themes span, .about-the-game span');
+  const startBtn = document.querySelector('.overlay .btn');
   const themeBtns = document.querySelectorAll('.control-themes span');
+  const aboutBtn = document.querySelector('.about-the-game span');
+  const pause = document.querySelector('.control-btns .pause');
+
+  let canInfoBeshowed = true;
 
   document.body.classList = theme.getTheme();
+  [...themeBtns].filter((btn) => btn.classList[0] === theme.getTheme())[0].classList.add('active');
   document.querySelector('.level strong').innerText = level.getLevel();
 
   buttons.forEach((button) => {
@@ -31,15 +37,53 @@ import OverlayController from './modules/OverlayController';
 
   themeBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      theme.change(btn.className);
+      theme.change(btn, themeBtns);
     });
   });
 
-  overlay.click(() => {
+  startBtn.onclick = () => {
+    canInfoBeshowed = true;
+
     overlay.slideOut(() => {
-      game.start();
+      if (!game.gameStarted) {
+        game.start();
+      } else {
+        game.replay(pause);
+      }
     });
-  });
+  };
+
+  aboutBtn.onclick = () => {
+    if (!canInfoBeshowed) return;
+
+    canInfoBeshowed = false;
+
+    let btn = 'Start';
+    const title = 'About The Game';
+    const msg = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+
+    if (game.gameStarted) {
+      btn = 'Replay';
+
+      if (!game.pause) game._pause(pause);
+    }
+
+    if (overlay.isSlideIn) {
+      overlay.slideOut(() => {
+        overlay.slideIn({
+          btn,
+          title,
+          msg,
+        });
+      });
+    } else {
+      overlay.slideIn({
+        btn,
+        title,
+        msg,
+      });
+    }
+  };
 
   return false;
 }());
