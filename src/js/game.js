@@ -3,7 +3,7 @@ import AudioController from './modules/AudioController';
 import ThemeController from './modules/ThemeController';
 import LevelController from './modules/LevelController';
 import GameController from './modules/GameController';
-import OverlayController from './modules/OverlayController';
+// import OverlayController from './modules/OverlayController';
 
 (function startGame() {
   if (!/Google Inc/.test(navigator.vendor)) {
@@ -14,7 +14,7 @@ import OverlayController from './modules/OverlayController';
   const audio = new AudioController();
   const theme = new ThemeController();
   const level = new LevelController();
-  const overlay = new OverlayController();
+  // const overlay = new OverlayController();
   const game = new GameController();
 
   const buttons = document.querySelectorAll('.btn, .control-themes span, .about-the-game span');
@@ -42,7 +42,6 @@ import OverlayController from './modules/OverlayController';
 
   startBtn.onclick = () => {
     canInfoBeshowed = true;
-
     if (!game.gameStarted || game.gameFinished) return game.start();
 
     game.replay();
@@ -53,6 +52,7 @@ import OverlayController from './modules/OverlayController';
 
     canInfoBeshowed = false;
 
+    // Texts here is just temporary
     let btn = 'Start';
     const title = 'About The Game';
     const msg = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ulabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Atvero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
@@ -60,14 +60,11 @@ import OverlayController from './modules/OverlayController';
     if (game.gameStarted) {
       btn = 'Replay';
 
-      if (!game.pause) {
-        return game._pause({ btn, title, msg });
-      }
+      if (!game.pause) return game._pause({ btn, title, msg });
     }
 
-    overlay.slideOut(() => {
-      overlay.slideIn({ btn, title, msg });
-    });
+    // overlay.slideOut(() => overlay.slideIn({ btn, title, msg }));
+    // overlay.slideIn({ btn, title, msg });
   };
 
   return false;

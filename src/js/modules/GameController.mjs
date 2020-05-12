@@ -49,27 +49,32 @@ export default class Game {
       ],
     };
 
+    this.gameFinished = false;
+
     if (Number(this.level.getLevel()) > this.config.max_level) return;
 
-    if (this.overlay.isSlideIn) {
-      this.overlay.slideOut(() => {
-        this.restart();
-      });
+    if (!this.gameStarted) {
+      this.boxesEvents();
 
-      return;
+      this.btnsEvents();
     }
+
+    if (this.overlay.isSlideIn) return this.overlay.slideOut(() => this.restart());
 
     this.restart();
   }
 
   restart() {
-    console.log('hello');
-    this.gameFinished = false;
-
-    if (!this.columnsAnimated) this.animateColumns();
-
     if (this.borders.length) this.removeBorders();
 
+    document.querySelector('.level strong').innerText = this.level.getLevel();
+
+    if (!this.columnsAnimated) return this.animateColumns(() => this.onEachStart());
+
+    this.onEachStart();
+  }
+
+  onEachStart() {
     this.generateBorders();
 
     this._countdown();
@@ -77,19 +82,9 @@ export default class Game {
     this._moves();
 
     this.allowBtnsClick();
-
-    document.querySelector('.level strong').innerText = this.level.getLevel();
-
-    if (this.gameStarted) return;
-
-    this.gameStarted = true;
-
-    this.boxesEvents();
-
-    this.btnsEvents();
   }
 
-  animateColumns() {
+  animateColumns(callback) {
     this.columnsAnimated = true;
 
     this.boxesContainer.classList.add('animate');
@@ -100,6 +95,8 @@ export default class Game {
 
     setTimeout(() => {
       this.boxesContainer.classList.remove('animate');
+
+      callback();
     }, 2000);
   }
 
@@ -333,6 +330,8 @@ export default class Game {
   }
 
   _countdown() {
+    this.gameStarted = true;
+
     this.countdown = new CountdownController(this.config.countdown);
 
     const coutdouwnSpan = document.querySelector('.moves-countdown .countdown span');

@@ -39,24 +39,16 @@ export default class CountdownController {
   }
 
   replay() {
-    if (!this.isPause) throw 'Timer is not paused';
+    if (!this.isPause) return;
 
     this.isPause = false;
   }
 
   clear() {
     if (this.interval) return clearInterval(this.interval);
-
-    throw 'There is no Timer';
   }
 
   pause() {
-    if (this.interval) {
-      this.isPause = true;
-
-      return;
-    }
-
-    throw 'There is no Timer';
+    if (this.interval) this.isPause = true;
   }
 }

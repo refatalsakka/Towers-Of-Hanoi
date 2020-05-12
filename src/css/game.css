@@ -47,20 +47,14 @@ body {
 .overlay button {
   margin-top: 20px;
 }
-.overlay h1,
-.overlay button,
-.overlay p {
-  top: 0;
+.overlay .container {
+  text-align: center;
 }
-.overlay.out h1,
-.overlay.out button,
-.overlay.out p {
+.overlay.out .container {
   position: relative;
   animation: overlayOut 1s ease-in-out forwards;
 }
-.overlay.in h1,
-.overlay.in button,
-.overlay.in p {
+.overlay.in .container {
   position: relative;
   animation: overlayIn 1s ease-in-out forwards;
 }
@@ -72,12 +66,12 @@ body {
     top: 100px;
   }
   100%{
-    top: -700px;
+    top: -100vh;
   }
 }
 @keyframes overlayIn {
   0% {
-    top: -700px;
+    top: -100vh;
   }
   75% {
     top: 100px;

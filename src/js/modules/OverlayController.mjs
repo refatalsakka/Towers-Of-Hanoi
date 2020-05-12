@@ -1,9 +1,12 @@
 export default class OverlayController {
   constructor() {
     this.overlay = document.querySelector('.overlay');
+    this.container = document.querySelector('.overlay .container');
+
     this.btn = document.querySelector('.overlay .btn');
     this.title = document.querySelector('.overlay h1');
     this.text = document.querySelector('.info-box p.info-text');
+
     this.isSlideIn = true;
   }
 
@@ -18,8 +21,12 @@ export default class OverlayController {
     this.overlay.classList.remove('out');
     this.overlay.classList.add('in');
 
-    this.btn.addEventListener('animationend', () => {
+    document.body.classList.add('not-clickable');
+
+    this.container.addEventListener('animationend', () => {
       this.btn.classList.remove('not-clickable');
+
+      document.body.classList.remove('not-clickable');
 
       if (typeof callback === 'function') callback();
     }, { once: true });
@@ -31,8 +38,12 @@ export default class OverlayController {
     this.overlay.classList.add('out');
     this.overlay.classList.remove('in');
 
-    this.btn.addEventListener('animationend', () => {
+    document.body.classList.add('not-clickable');
+
+    this.container.addEventListener('animationend', () => {
       this.overlay.classList.add('disable');
+
+      document.body.classList.remove('not-clickable');
 
       if (typeof callback === 'function') callback();
     }, { once: true });
