@@ -43,7 +43,7 @@ import OverlayController from './modules/OverlayController';
   startBtn.onclick = () => {
     canInfoBeshowed = true;
 
-    if (!game.gameStarted) return game.start();
+    if (!game.gameStarted || game.gameFinished) return game.start();
 
     game.replay();
   };

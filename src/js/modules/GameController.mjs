@@ -32,6 +32,7 @@ export default class Game {
     this.borderOuting = null;
 
     this.gameStarted = false;
+    this.gameFinished = false;
     this.countdown = null;
     this.pause = false;
     this.columnsAnimated = false;
@@ -62,6 +63,9 @@ export default class Game {
   }
 
   restart() {
+    console.log('hello');
+    this.gameFinished = false;
+
     if (!this.columnsAnimated) this.animateColumns();
 
     if (this.borders.length) this.removeBorders();
@@ -307,6 +311,8 @@ export default class Game {
   }
 
   _finish(btn, title = this.msgs[this.level.getLevel() - 1]) {
+    this.gameFinished = true;
+
     this.pause = false;
 
     document.querySelector('.control-btns .pause').innerText = 'Pause';
