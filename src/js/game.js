@@ -21,7 +21,6 @@ import OverlayController from './modules/OverlayController';
   const startBtn = document.querySelector('.overlay .btn');
   const themeBtns = document.querySelectorAll('.control-themes span');
   const aboutBtn = document.querySelector('.about-the-game span');
-  const pause = document.querySelector('.control-btns .pause');
 
   let canInfoBeshowed = true;
 
@@ -44,13 +43,9 @@ import OverlayController from './modules/OverlayController';
   startBtn.onclick = () => {
     canInfoBeshowed = true;
 
-    overlay.slideOut(() => {
-      if (!game.gameStarted) {
-        game.start();
-      } else {
-        game.replay(pause);
-      }
-    });
+    if (!game.gameStarted) return game.start();
+
+    game.replay();
   };
 
   aboutBtn.onclick = () => {
@@ -60,29 +55,19 @@ import OverlayController from './modules/OverlayController';
 
     let btn = 'Start';
     const title = 'About The Game';
-    const msg = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+    const msg = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ulabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Atvero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
 
     if (game.gameStarted) {
       btn = 'Replay';
 
-      if (!game.pause) game._pause(pause);
+      if (!game.pause) {
+        return game._pause({ btn, title, msg });
+      }
     }
 
-    if (overlay.isSlideIn) {
-      overlay.slideOut(() => {
-        overlay.slideIn({
-          btn,
-          title,
-          msg,
-        });
-      });
-    } else {
-      overlay.slideIn({
-        btn,
-        title,
-        msg,
-      });
-    }
+    overlay.slideOut(() => {
+      overlay.slideIn({ btn, title, msg });
+    });
   };
 
   return false;

@@ -147,7 +147,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   var startBtn = document.querySelector('.overlay .btn');
   var themeBtns = document.querySelectorAll('.control-themes span');
   var aboutBtn = document.querySelector('.about-the-game span');
-  var pause = document.querySelector('.control-btns .pause');
   var canInfoBeshowed = true;
   document.body.classList = theme.getTheme();
 
@@ -169,13 +168,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   startBtn.onclick = function () {
     canInfoBeshowed = true;
-    overlay.slideOut(function () {
-      if (!game.gameStarted) {
-        game.start();
-      } else {
-        game.replay(pause);
-      }
-    });
+    if (!game.gameStarted) return game.start();
+    game.replay();
   };
 
   aboutBtn.onclick = function () {
@@ -183,28 +177,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     canInfoBeshowed = false;
     var btn = 'Start';
     var title = 'About The Game';
-    var msg = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+    var msg = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ulabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Atvero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
 
     if (game.gameStarted) {
       btn = 'Replay';
-      if (!game.pause) game._pause(pause);
-    }
 
-    if (overlay.isSlideIn) {
-      overlay.slideOut(function () {
-        overlay.slideIn({
+      if (!game.pause) {
+        return game._pause({
           btn: btn,
           title: title,
           msg: msg
         });
-      });
-    } else {
+      }
+    }
+
+    overlay.slideOut(function () {
       overlay.slideIn({
         btn: btn,
         title: title,
         msg: msg
       });
-    }
+    });
   };
 
   return false;
@@ -506,6 +499,8 @@ var Game = /*#__PURE__*/function () {
   _createClass(Game, [{
     key: "start",
     value: function start() {
+      var _this = this;
+
       this.config = {
         max_level: 7,
         borders_length: Number(this.level.getLevel()) + 3,
@@ -513,6 +508,19 @@ var Game = /*#__PURE__*/function () {
         win_status: [[0, 0, Number(this.level.getLevel()) + 3], [0, Number(this.level.getLevel()) + 3, 0]]
       };
       if (Number(this.level.getLevel()) > this.config.max_level) return;
+
+      if (this.overlay.isSlideIn) {
+        this.overlay.slideOut(function () {
+          _this.restart();
+        });
+        return;
+      }
+
+      this.restart();
+    }
+  }, {
+    key: "restart",
+    value: function restart() {
       if (!this.columnsAnimated) this.animateColumns();
       if (this.borders.length) this.removeBorders();
       this.generateBorders();
@@ -531,14 +539,14 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "animateColumns",
     value: function animateColumns() {
-      var _this = this;
+      var _this2 = this;
 
       this.columnsAnimated = true;
       this.boxesContainer.classList.add('animate');
       this.boxesContainer.classList.add('active');
       this.audio.buildAudio();
       setTimeout(function () {
-        _this.boxesContainer.classList.remove('animate');
+        _this2.boxesContainer.classList.remove('animate');
       }, 2000);
     }
   }, {
@@ -565,23 +573,23 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "bordersEvents",
     value: function bordersEvents() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.borders.forEach(function (border, index) {
-        _this2.borderInAfterOut(border, index);
+        _this3.borderInAfterOut(border, index);
 
         border.addEventListener('dragstart', function (e) {
-          return _this2.drag(e);
+          return _this3.drag(e);
         });
         border.addEventListener('mouseover', function (e) {
-          if (_this2.isBorderAllowToDrag(e) && !_this2.pause) {
-            return _this2.whenAllowToDrag(e);
+          if (_this3.isBorderAllowToDrag(e) && !_this3.pause) {
+            return _this3.whenAllowToDrag(e);
           }
 
-          return _this2.whenNotAllowToDrag(e);
+          return _this3.whenNotAllowToDrag(e);
         });
         border.addEventListener('mouseout', function () {
-          return _this2.resetBorderStyle(border);
+          return _this3.resetBorderStyle(border);
         });
       });
     }
@@ -607,11 +615,11 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "borderInAfterOut",
     value: function borderInAfterOut(border, index) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.borderOuting) {
         this.borderOuting.addEventListener('animationend', function () {
-          _this3.borderIn(border, index);
+          _this4.borderIn(border, index);
         }, {
           once: true
         });
@@ -653,34 +661,34 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "btnsEvents",
     value: function btnsEvents() {
-      var _this4 = this;
+      var _this5 = this;
 
-      document.querySelector('.control-btns .pause').addEventListener('click', function (e) {
-        return _this4._pause(e);
+      document.querySelector('.control-btns .pause').addEventListener('click', function () {
+        return _this5._pause();
       });
       document.querySelector('.control-btns .new').addEventListener('click', function () {
-        _this4._finish(null);
+        _this5._finish(null);
 
-        _this4.start();
+        _this5.start();
       });
     }
   }, {
     key: "boxesEvents",
     value: function boxesEvents() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.boxes.forEach(function (box) {
         box.addEventListener('dragenter', function (e) {
-          return _this5.whenInterToBox(e);
+          return _this6.whenInterToBox(e);
         });
         box.addEventListener('dragleave', function (e) {
-          return _this5.whenLeaveBox(e);
+          return _this6.whenLeaveBox(e);
         });
         box.addEventListener('dragover', function (e) {
-          return _this5.dragover(e);
+          return _this6.dragover(e);
         });
         box.addEventListener('drop', function (e) {
-          return _this5.drop(e);
+          return _this6.drop(e);
         });
       });
     }
@@ -809,14 +817,14 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "_countdown",
     value: function _countdown() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.countdown = new _CountdownController__WEBPACK_IMPORTED_MODULE_5__["default"](this.config.countdown);
       var coutdouwnSpan = document.querySelector('.moves-countdown .countdown span');
       coutdouwnSpan.innerText = '00:00';
       this.countdown.start(function (countdown) {
         coutdouwnSpan.innerText = countdown;
-        if (countdown === '00:00') return _this6.losed();
+        if (countdown === '00:00') return _this7.losed();
       });
     }
   }, {
@@ -826,31 +834,37 @@ var Game = /*#__PURE__*/function () {
     }
   }, {
     key: "_pause",
-    value: function _pause(e) {
-      if (this.pause) return this.replay(e);
-
-      if (e.target) {
-        e.target.innerText = 'Replay';
-      } else {
-        e.innerText = 'Replay';
-      }
-
+    value: function _pause() {
+      var msgs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       if (!this.gameStarted) return false;
       this.pause = true;
+      var btn = 'Replay';
+      var title = 'You paused the Game';
+      var msg = 'Click Replay to continue';
+
+      if (msgs != null) {
+        btn = msgs.btn;
+        title = msgs.title;
+        msg = msgs.msg;
+      }
+
+      this.overlay.slideIn({
+        btn: btn,
+        title: title,
+        msg: msg
+      });
       this.countdown.pause();
     }
   }, {
     key: "replay",
-    value: function replay(e) {
-      if (e.target) {
-        e.target.innerText = 'Pause';
-      } else {
-        e.innerText = 'Pause';
-      }
+    value: function replay() {
+      var _this8 = this;
 
       if (!this.gameStarted) return false;
       this.pause = false;
-      this.countdown.replay();
+      this.overlay.slideOut(function () {
+        _this8.countdown.replay();
+      });
     }
   }]);
 

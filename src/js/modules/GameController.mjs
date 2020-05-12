@@ -50,6 +50,18 @@ export default class Game {
 
     if (Number(this.level.getLevel()) > this.config.max_level) return;
 
+    if (this.overlay.isSlideIn) {
+      this.overlay.slideOut(() => {
+        this.restart();
+      });
+
+      return;
+    }
+
+    this.restart();
+  }
+
+  restart() {
     if (!this.columnsAnimated) this.animateColumns();
 
     if (this.borders.length) this.removeBorders();
@@ -178,7 +190,7 @@ export default class Game {
   }
 
   btnsEvents() {
-    document.querySelector('.control-btns .pause').addEventListener('click', (e) => this._pause(e));
+    document.querySelector('.control-btns .pause').addEventListener('click', () => this._pause());
 
     document.querySelector('.control-btns .new').addEventListener('click', () => {
       this._finish(null);
@@ -332,33 +344,33 @@ export default class Game {
     document.querySelector('.moves-countdown .moves span').innerText = this.moves.getMoves();
   }
 
-  _pause(e) {
-    if (this.pause) return this.replay(e);
-
-    if (e.target) {
-      e.target.innerText = 'Replay';
-    } else {
-      e.innerText = 'Replay';
-    }
-
+  _pause(msgs = null) {
     if (!this.gameStarted) return false;
 
     this.pause = true;
 
+    let btn = 'Replay';
+    let title = 'You paused the Game';
+    let msg = 'Click Replay to continue';
+
+    if (msgs != null) {
+      btn = msgs.btn;
+      title = msgs.title;
+      msg = msgs.msg;
+    }
+
+    this.overlay.slideIn({ btn, title, msg });
+
     this.countdown.pause();
   }
 
-  replay(e) {
-    if (e.target) {
-      e.target.innerText = 'Pause';
-    } else {
-      e.innerText = 'Pause';
-    }
-
+  replay() {
     if (!this.gameStarted) return false;
 
     this.pause = false;
 
-    this.countdown.replay();
+    this.overlay.slideOut(() => {
+      this.countdown.replay();
+    });
   }
 }
