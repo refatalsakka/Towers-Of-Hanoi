@@ -57,17 +57,13 @@ import OverlayController from './modules/OverlayController';
 
     if (game.gameStarted) {
       btn = 'Replay';
-
       canInfoBeshowed = false;
-
       if (!game.pause) return game._pause({ btn, title, msg });
     }
 
     if (overlay.isSlideIn) {
       overlay.slideOut(() => overlay.slideIn({ btn, title, msg }));
-
       canInfoBeshowed = false;
-
       return;
     }
 
