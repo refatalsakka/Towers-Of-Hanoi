@@ -1,5 +1,8 @@
 export default class OverlayController {
   constructor() {
+    if (OverlayController.instance) return OverlayController.instance;
+    OverlayController.instance = this;
+
     this.overlay = document.querySelector('.overlay');
     this.container = document.querySelector('.overlay .container');
 

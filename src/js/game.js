@@ -3,7 +3,7 @@ import AudioController from './modules/AudioController';
 import ThemeController from './modules/ThemeController';
 import LevelController from './modules/LevelController';
 import GameController from './modules/GameController';
-// import OverlayController from './modules/OverlayController';
+import OverlayController from './modules/OverlayController';
 
 (function startGame() {
   if (!/Google Inc/.test(navigator.vendor)) {
@@ -14,7 +14,7 @@ import GameController from './modules/GameController';
   const audio = new AudioController();
   const theme = new ThemeController();
   const level = new LevelController();
-  // const overlay = new OverlayController();
+  const overlay = new OverlayController();
   const game = new GameController();
 
   const buttons = document.querySelectorAll('.btn, .control-themes span, .about-the-game span');
@@ -50,8 +50,6 @@ import GameController from './modules/GameController';
   aboutBtn.onclick = () => {
     if (!canInfoBeshowed) return;
 
-    canInfoBeshowed = false;
-
     // Texts here is just temporary
     let btn = 'Start';
     const title = 'About The Game';
@@ -60,11 +58,20 @@ import GameController from './modules/GameController';
     if (game.gameStarted) {
       btn = 'Replay';
 
+      canInfoBeshowed = false;
+
       if (!game.pause) return game._pause({ btn, title, msg });
     }
 
-    // overlay.slideOut(() => overlay.slideIn({ btn, title, msg }));
-    // overlay.slideIn({ btn, title, msg });
+    if (overlay.isSlideIn) {
+      overlay.slideOut(() => overlay.slideIn({ btn, title, msg }));
+
+      canInfoBeshowed = false;
+
+      return;
+    }
+
+    canInfoBeshowed = true;
   };
 
   return false;
