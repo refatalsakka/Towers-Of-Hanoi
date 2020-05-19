@@ -1,28 +1,20 @@
 import CookieController from './CookieController';
-import AudioController from './AudioController';
 
 export default class LevelController {
-  constructor() {
-    this.coockie = new CookieController();
-    this.audio = new AudioController();
+  static setLevel(level) {
+    CookieController.setCoockie('level', level);
   }
 
-  setLevel(level) {
-    this.coockie.setCoockie('level', level);
+  static getLevel() {
+    return CookieController.getCoockie('level') ? CookieController.getCoockie('level') : 1;
   }
 
-  getLevel() {
-    return this.coockie.getCoockie('level') ? this.coockie.getCoockie('level') : 1;
-  }
-
-  up() {
+  static up() {
     this.setLevel(Number(this.getLevel()) + 1);
   }
 
-  animate() {
+  static animate() {
     const level = document.querySelector('.level strong');
-
-    this.audio.levelUpAudio();
 
     level.classList.add('up');
 

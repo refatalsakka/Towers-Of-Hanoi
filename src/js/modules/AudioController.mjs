@@ -1,41 +1,29 @@
 export default class AudioController {
-  constructor() {
-    this.button = new Audio('sounds/button.wav');
-    this.border = new Audio('sounds/border.wav');
-    this.build = new Audio('sounds/build.wav');
-    this.lose = new Audio('sounds/lose.wav');
-    this.readyToStart = new Audio('sounds/ready_to_start.wav');
-    this.levelUp = new Audio('sounds/levelUp.wav');
-    this.victory = new Audio('sounds/victory.mp3');
+  static buttonAudio() {
+    new Audio('sounds/button.wav').play();
   }
 
-  buttonAudio() {
-    this.button.currentTime = 0;
-    this.button.play();
+  static borderAudio() {
+    new Audio('sounds/border.wav').play();
   }
 
-  borderAudio() {
-    this.border.currentTime = 0;
-    this.border.play();
+  static buildAudio() {
+    new Audio('sounds/build.wav').play();
   }
 
-  buildAudio() {
-    this.build.play();
+  static loseAudio() {
+    new Audio('sounds/lose.wav').play();
   }
 
-  loseAudio() {
-    this.lose.play();
+  static readyToStartAudio() {
+    new Audio('sounds/ready_to_start.wav').play();
   }
 
-  readyToStartAudio() {
-    this.readyToStart.play();
+  static levelUpAudio() {
+    new Audio('sounds/levelUp.wav').play();
   }
 
-  levelUpAudio() {
-    this.levelUp.play();
-  }
-
-  victoryAudio() {
-    this.victory.play();
+  static victoryAudio() {
+    new Audio('sounds/victory.mp3').play();
   }
 }

@@ -1,31 +1,27 @@
 import CookieController from './CookieController';
 
 export default class ThemeController {
-  constructor() {
-    this.coockie = new CookieController();
-  }
-
-  deactivate(btns) {
+  static deactivate(btns) {
     btns.forEach((btn) => {
       btn.classList.remove('active');
     });
   }
 
-  active(btn) {
+  static active(btn) {
     btn.classList.add('active');
   }
 
-  change(btn, btns) {
+  static change(btn, btns) {
     this.deactivate(btns);
 
-    this.coockie.setCoockie('theme', btn.className);
+    CookieController.setCoockie('theme', btn.className);
 
     document.body.className = btn.className;
 
     this.active(btn);
   }
 
-  getTheme() {
-    return this.coockie.getCoockie('theme') ? this.coockie.getCoockie('theme') : 'green-red-gray';
+  static getTheme() {
+    return CookieController.getCoockie('theme') ? CookieController.getCoockie('theme') : 'green-red-gray';
   }
 }

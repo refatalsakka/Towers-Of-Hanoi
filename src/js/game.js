@@ -11,9 +11,6 @@ import OverlayController from './modules/OverlayController';
     return;
   }
 
-  const audio = new AudioController();
-  const theme = new ThemeController();
-  const level = new LevelController();
   const overlay = new OverlayController();
   const game = new GameController();
 
@@ -24,19 +21,19 @@ import OverlayController from './modules/OverlayController';
 
   let canInfoBeshowed = true;
 
-  document.body.classList = theme.getTheme();
-  [...themeBtns].filter((btn) => btn.classList[0] === theme.getTheme())[0].classList.add('active');
-  document.querySelector('.level strong').innerText = level.getLevel();
+  document.body.classList = ThemeController.getTheme();
+  [...themeBtns].filter((btn) => btn.classList[0] === ThemeController.getTheme())[0].classList.add('active');
+  document.querySelector('.level strong').innerText = LevelController.getLevel();
 
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
-      audio.buttonAudio();
+      AudioController.buttonAudio();
     });
   });
 
   themeBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      theme.change(btn, themeBtns);
+      ThemeController.change(btn, themeBtns);
     });
   });
 

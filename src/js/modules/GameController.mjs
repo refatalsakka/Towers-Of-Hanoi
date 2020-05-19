@@ -5,12 +5,9 @@ import AudioController from './AudioController';
 import OverlayController from './OverlayController';
 import CountdownController from './CountdownController';
 
-export default class Game {
+export default class GameController {
   constructor() {
-    this.helpers = new HelpersController();
-    this.level = new LevelController();
     this.moves = new MoveController();
-    this.audio = new AudioController();
     this.overlay = new OverlayController();
 
     this.config = {};
@@ -41,17 +38,17 @@ export default class Game {
   start() {
     this.config = {
       max_level: 7,
-      borders_length: Number(this.level.getLevel()) + 3,
-      countdown: Number(this.level.getLevel()) * 35,
+      borders_length: Number(LevelController.getLevel()) + 3,
+      countdown: Number(LevelController.getLevel()) * 35,
       win_status: [
-        [0, 0, Number(this.level.getLevel()) + 3],
-        [0, Number(this.level.getLevel()) + 3, 0],
+        [0, 0, Number(LevelController.getLevel()) + 3],
+        [0, Number(LevelController.getLevel()) + 3, 0],
       ],
     };
 
     this.gameFinished = false;
 
-    if (Number(this.level.getLevel()) > this.config.max_level) return;
+    if (Number(LevelController.getLevel()) > this.config.max_level) return;
 
     if (!this.gameStarted) {
       this.boxesEvents();
@@ -67,7 +64,7 @@ export default class Game {
   restart() {
     if (this.borders.length) this.removeBorders();
 
-    document.querySelector('.level strong').innerText = this.level.getLevel();
+    document.querySelector('.level strong').innerText = LevelController.getLevel();
 
     if (!this.columnsAnimated) return this.animateColumns(() => this.onEachStart());
 
@@ -91,7 +88,7 @@ export default class Game {
 
     this.boxesContainer.classList.add('active');
 
-    this.audio.buildAudio();
+    AudioController.buildAudio();
 
     setTimeout(() => {
       this.boxesContainer.classList.remove('animate');
@@ -143,7 +140,7 @@ export default class Game {
 
     border.style.animation = `borderIn .5s ${index / 10}s ease forwards`;
 
-    this.audio.borderAudio();
+    AudioController.borderAudio();
   }
 
   borderOut(border, index) {
@@ -252,7 +249,7 @@ export default class Game {
 
     container.insertBefore(border, container.firstChild);
 
-    this.audio.buttonAudio();
+    AudioController.buttonAudio();
 
     this.moves.up();
 
@@ -273,7 +270,7 @@ export default class Game {
     const currentStatus = this.boxes.map((box) => box.querySelector('.borders-container').childElementCount);
 
     for (let i = 0; i < this.config.win_status.length; i += 1) {
-      if (this.helpers.areArraysEqual(this.config.win_status[i], currentStatus)) {
+      if (HelpersController.areArraysEqual(this.config.win_status[i], currentStatus)) {
         return true;
       }
     }
@@ -284,30 +281,32 @@ export default class Game {
   won() {
     if (this.isWinTheHoleGame()) return this.wonTheHoleGame();
 
-    this.level.animate();
+    LevelController.animate();
 
-    this._finish(`Got to the level ${this.level.getLevel()}`);
+    AudioController.levelUpAudio();
+
+    this._finish(`Got to the level ${LevelController.getLevel()}`);
   }
 
   isWinTheHoleGame() {
-    return (this.config.max_level === Number(this.level.getLevel()));
+    return (this.config.max_level === Number(LevelController.getLevel()));
   }
 
   wonTheHoleGame() {
-    this.audio.victoryAudio();
+    AudioController.victoryAudio();
 
     this._finish('Restart the Game');
 
-    this.level.setLevel(1);
+    LevelController.setLevel(1);
   }
 
   losed() {
     this._finish('Try Again', 'Ohh, Good luck next Game');
 
-    this.audio.loseAudio();
+    AudioController.loseAudio();
   }
 
-  _finish(btn, title = this.msgs[this.level.getLevel() - 1]) {
+  _finish(btn, title = this.msgs[LevelController.getLevel() - 1]) {
     this.gameFinished = true;
 
     this.pause = false;
