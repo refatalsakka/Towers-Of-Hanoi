@@ -104,7 +104,7 @@ body {
   justify-content: center;
 }
 .current-info p {
-  font-size: 3.5vmin;
+  font-size: 2vmin;
 }
 @media only screen and (max-width: 1118px) {
   .current-info  p {
