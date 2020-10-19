@@ -210,11 +210,11 @@ export default class GameController {
   }
 
   whenInterToBox(e) {
-    e.path.find((elm) => elm.classList[0] === 'box').classList.add('hover');
+    e.target.closest('.box').classList.add('hover');
   }
 
   whenLeaveBox(e) {
-    e.path.find((elm) => elm.classList[0] === 'box').classList.remove('hover');
+    e.target.closest('.box').classList.remove('hover');
   }
 
   dragover(e) {
