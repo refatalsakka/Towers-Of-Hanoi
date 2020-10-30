@@ -16,9 +16,9 @@ export default class OverlayController {
   slideIn(text, callback) {
     this.isSlideIn = true;
 
-    this.btn.innerText = text.btn;
-    this.title.innerText = text.title;
-    this.text.innerText = text.msg;
+    this.btn.innerHTML = text.btn;
+    this.title.innerHTML = text.title;
+    this.text.innerHTML = text.msg;
 
     this.overlay.classList.remove('disable');
     this.overlay.classList.remove('out');

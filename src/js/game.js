@@ -50,7 +50,13 @@ import OverlayController from './modules/OverlayController';
     // Texts here is just temporary
     let btn = 'Start';
     const title = 'About The Game';
-    const msg = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ulabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Atvero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+    const msg = `
+      The Tower of Hanoi (also called the Tower of Brahma or Lucas' Tower[1] and sometimes pluralized as Towers) > is a mathematical game or puzzle.
+      It consists of three rods and a number of disks of different sizes, >which can slide onto any rod.
+      The puzzle starts with the disks in a neat stack in ascending order of size >on one rod, the smallest at the top, thus making a conical shape.
+      <br/>
+      <a href="https://github.com/refatalsakka/Towers-Of-Hanoi#about-the-game-wiki" target="_blank">Read the rules</a>
+      `;
 
     if (game.gameStarted) {
       btn = 'Replay';
