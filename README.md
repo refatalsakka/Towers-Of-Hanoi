@@ -1,6 +1,5 @@
 # Towers-Of-Hanoi
 I have developed this simple Game using HTML5, CSS3 and JavaScript.
-the Game was written from scratch without using any tools or plugins.
 
 [Click to play Now](https://refatalsakka.github.io/Towers-Of-Hanoi/)
 
