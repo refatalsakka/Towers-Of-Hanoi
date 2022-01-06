@@ -1,4 +1,4 @@
-# Towers-Of-Hanoi
+# Towers of Hanoi
 I have developed this simple Game using HTML5, CSS3 and JavaScript.
 
 [Click to play Now](https://refatalsakka.github.io/Towers-Of-Hanoi/)
