@@ -236,7 +236,7 @@ export default class GameController {
   drop(e) {
     e.preventDefault();
 
-    const box = e.path.find((elm) => elm.classList[0] === 'box');
+    const box = e.composedPath().find((elm) => elm.classList[0] === 'box');
     const container = box.querySelector('.borders-container');
     const data = e.dataTransfer.getData('text');
     const border = document.querySelector(`div[data-index='${data}']`);
